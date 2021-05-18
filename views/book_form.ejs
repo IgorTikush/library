@@ -1,0 +1,57 @@
+<%- include('../views/partials/_head.ejs') %> 
+<body>
+        <%- include('../views/partials/navbar.ejs') %> 
+      <div class="col-sm-10">
+        <h1><%= title %> </h1>
+        <form action="" method="POST">
+            <div class="form-group">
+                <label for="title">Title:</label>
+                <input type="text" class="form-control" placeholder="Name of book" name="title" required='true' value="<%= locals.book ===undefined ? '' : book.title %> ">
+            </div>
+            <div class="form-group">
+                <label for="author "> Author:</label>
+                <select name="author" placeholder="Select author" class="form-control" required="true">
+                    <% authors.sort(function(a,b) { let textA = a.family_name.toUpperCase(); let textB = b.family_name.toUpperCase(); return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;}) %>
+                    <% for(let i in authors) { %>
+                        <% if (locals.book) { %>
+                            <option value="<%= authors[i]._id %> " selected="<%= authors[i]._id.toString()===book.author._id.toString() ? 'selected' : false %> "><%= authors[i].name %> </option>
+                        <% } else { %>
+                            <option value="<%= authors[i]._id %> "><%= authors[i].name %> </option>
+                        <% } %> 
+                    <%} %> 
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="summary">Summary</label>
+                <textarea class="form-control" name="summary"   rows="5" placeholder="Summary" required='true'><%= locals.book === undefined ? '' : book.summary %> </textarea>
+            </div>
+            <div class="form-group">
+                <label for="isbn"> ISBN: </label>
+                <input name="isbn" type="text" placeholder="ISBN13" class="form-control" value="<%= locals.book === undefined ? '' : book.isbn %> " required='true'>
+            </div>
+            <div class="form-group">
+                <label for="genre"> Genre: </label>
+                <% for (let i in genres) { %>
+                    <div style="display: inline; padding-right:10px">
+                        <input type="checkbox" class="checkbox-input" name="genre" value="<%= genres[i]._id %>" >
+                        <label for="genre"><%= genres[i].name %> </label>
+                    </div>
+                <% } %> 
+            </div>
+            <button class="btn btn-primary">Submit
+
+            </button>
+        </form>
+        <% if (locals.errors) { %>
+            <ul>
+                <% for (let i in errors) { %>
+                    <li><%= errors[i].msg %> </li>
+                <% } %> 
+            </ul>
+        <% }  %>  
+
+      </div>
+    </div>
+  </div>
+</body>
+</html>

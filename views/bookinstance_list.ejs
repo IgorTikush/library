@@ -1,0 +1,27 @@
+<%- include('../views/partials/_head.ejs') %> 
+<body>
+        <%- include('../views/partials/navbar.ejs') %> 
+      <div class="col-sm-10">
+        <h1><%= title %> </h1>
+        <ul>
+            <%bookinstance_list.forEach((inst) => {%>
+                <li>
+                    <a href="<%= inst.url %> "><%= inst.book.title %>: <%= inst.imprint %>  </a>
+                    <% if(inst.status == 'Available') {%> 
+                        <span class="text-success"><%= inst.status %> </span>
+                    <%} else if(inst.status == 'Maintenance') {%>
+                        <span class="text-danger"><%= inst.status %> </span>
+                    <%} else  {%>
+                        <span class="text-warning"><%= inst.status %> </span>
+                    <%}%>
+                    <% if(inst.status!= 'Available') {%> 
+                        <span>Due: <%= inst.due_back_formatted %> </span>
+                    <%}%>
+                </li>
+            <%})%>
+        </ul>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

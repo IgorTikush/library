@@ -1,0 +1,42 @@
+<%- include('../views/partials/_head.ejs') %> 
+<body>
+        <%- include('../views/partials/navbar.ejs') %> 
+      <div class="col-sm-10">
+        <h1><%= title %> </h1>
+        <p>Author: <a href="<%= book.author.url %> "><%= book.author.name %> </a></p>
+        <p>Summary: <%= book.summary %> </p>
+        <p>ISBN: <%= book.isbn %> </p>
+        <p>Genre: <% book.genre.forEach((val) => { %>
+            <a href="<%= val.url %>"><%= val.name %> </a>
+            <% if (val !== book.genre[book.genre.length - 1]) { %>
+                ,
+            <%}%>
+        <% }) %> </p>
+        <div class="margin">
+            <h4>Copies</h4>
+            <% book_instances.forEach((book) => { %>
+                <hr>
+                <% if (book.status === 'Available') { %>
+                    <p class="text-success"><%= book.status %> </p>
+                <% } else if(book.status === 'Maintenance') {%> 
+                    <p class="text-danger"><%= book.status %> </p>
+                <% } else { %>
+                    <p class="text-warning"><%= book.status %> </p>
+                <% } %>
+                <% if (book.status !== 'Available') { %>
+                    <p>Due back: <%= book.due_back_formatted %> </p>
+                <% } %> 
+                <p>Id: <a href="<%= book.url %> "><%= book._id %> </a></p>
+            <% }) %>
+            <% if (book_instances.length === 0) { %>
+                <p>There are no copies of this book in the library</p>
+            <% } %>  
+        </div>
+        <hr>
+        <p><a href="<%= book.url + '/delete' %> ">delete</a></p>
+        <p><a href="<%= book.url + '/update' %> ">Update</a></p>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

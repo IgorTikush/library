@@ -1,0 +1,15 @@
+<%- include('../views/partials/_head.ejs') %> 
+<body>
+        <%- include('../views/partials/navbar.ejs') %> 
+      <div class="col-sm-10">
+        <h1><%= title %> </h1>
+        <ul>
+            <% genre_list.forEach((genre) => { %>
+                <li><a href="<%= genre.url %>"><%= genre.name %> </a></li>
+            <%}) %> 
+        </ul>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

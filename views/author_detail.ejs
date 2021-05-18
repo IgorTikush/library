@@ -1,0 +1,30 @@
+<%- include('../views/partials/_head.ejs') %> 
+<body>
+        <%- include('../views/partials/navbar.ejs') %> 
+      <div class="col-sm-10">
+        <h1>Author: <%= author.name %> </h1>
+        <p><%= author.date_of_birth_formatted %> - <%= author.date_of_death_formatted %> </p>
+        <div class="margin">
+            <h4>Books</h4>
+            <dl>
+                <% author_books.forEach((book) =>{ %>
+                    <dt>
+                        <a href="<%= book.url %> "><%= book.title %> </a>
+                    </dt>
+                    <dd>
+                        <%= book.summary %> 
+                    </dd>
+                <% }) %> 
+                <% if (author_books.length === 0) { %>
+                    <p>This author has no books</p>
+                <% } %> 
+            </dl>
+        </div>
+        <hr>
+        <p><a href="<%= author.url + '/delete' %> ">delete</a></p>
+        <p><a href="<%= author.url + '/update' %> ">Update</a></p>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

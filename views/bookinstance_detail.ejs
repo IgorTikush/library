@@ -1,0 +1,33 @@
+<%- include('../views/partials/_head.ejs') %> 
+<body>
+        <%- include('../views/partials/navbar.ejs') %> 
+      <div class="col-sm-10">
+        <h1>ID: <%= bookinstance._id %> </h1>
+        <p>Title: <a href="<%= bookinstance.book.url %> "><%= bookinstance.book.title %> </a></p>
+        <p>Imprint: <%= bookinstance.imprint %> </p>
+        <p>Status:
+            <% if (bookinstance.status === 'Available') { %>
+                <p class="text-success"><%= bookinstance.status %> </p>
+            <% } else if(bookinstance.status === 'Maintenance') {%> 
+                <p class="text-danger"><%= bookinstance.status %> </p>
+            <% } else { %>
+                <p class="text-warning"><%= bookinstance.status %> </p>
+            <% } %>
+            <% if (bookinstance.status !== 'Available') { %>
+                <p>Due back: <%= bookinstance.due_back_formatted %> </p>
+            <% } %> 
+        </p>
+        <hr>
+        <form action="<%= bookinstance.url %>/delete" method="POST">
+          <div class="form-group">
+              <input type="hidden" class="form-control" name="bookinstanceid" required='true' value="<%= bookinstance._id%>"
+              >
+          </div>
+          <button onclick="return confirm('Are you sure?')"  class="btn btn-primary">Delete</button>
+          <p><a href="<%= bookinstance.url + '/update' %> ">Update</a></p>
+        </form>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
