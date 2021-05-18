@@ -1,3 +1,4 @@
+require('dotenv').config();
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
@@ -6,11 +7,13 @@ var logger = require('morgan');
 var mongoose = require('mongoose')
 var compression = require('compression');
 var helmet = require('helmet');
-//mongo DB
-var mongoDB = 'mongodb+srv://igortikush:olupor28@cluster0.yl3qt.mongodb.net/local_library?retryWrites=true&w=majority';
-mongoose.connect(mongoDB, {useNewUrlParser: true, useUnifiedTopology: true});
 
+//mongo DB
+var mongoDB = process.env.MONGODB_URI;
+console.log(mongoDB)
+mongoose.connect(mongoDB, {useNewUrlParser: true, useUnifiedTopology: true});
 var db = mongoose.connection;
+
 db.on('error', console.error.bind(console, 'MongoDB connection error: '))
 //router
 var indexRouter = require('./routes/index');
